@@ -1,0 +1,10 @@
+# Logs
+*.log
+*.db
+*.sqlite
+uploads/
+node_modules/
+.env
+.idea/
+.vscode/
+config/database.php (se tiver senhas)
