@@ -50,18 +50,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if(ponto.tipo === 'troca') icon = trocaIcon;
                 
                 let statusLabel = "";
+                let sponsorLabel = "";
                 if(ponto.tipo === 'horta') {
                     const statusColors = { 'degradado': '#E74C3C', 'em_restauracao': '#F1C40F', 'produtivo': '#2ECC71' };
                     statusLabel = `<br><span style="color:${statusColors[ponto.status]}; font-weight:bold; font-size:0.8rem;">Status: ${ponto.status.replace('_', ' ')}</span>`;
+                    
+                    if (ponto.padrinho_nome) {
+                        sponsorLabel = `<br><span style="color:#27AE60; font-weight:bold; font-size:0.85rem;">🌿 Apadrinhado por: ${ponto.padrinho_nome}</span>`;
+                    } else {
+                        sponsorLabel = `<br><span style="color:gray; font-size:0.8rem; font-style:italic;">Disponível para Apadrinhamento Corporativo</span>`;
+                    }
                 }
 
-                let popupContent = `<b>${ponto.titulo}</b>${statusLabel}<br>${ponto.descricao}`;
+                let popupContent = `<b>${ponto.titulo}</b>${statusLabel}${sponsorLabel}<br>${ponto.descricao}`;
                 
                 if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
                     popupContent += `<br><br><div style="display:flex; flex-direction:column; gap:5px;">`;
-                    if(ponto.tipo === 'horta' && ponto.status === 'produtivo') {
+                    
+                    // Doação solidária (apenas para cidadãos, e em hortas produtivas)
+                    if(ponto.tipo === 'horta' && ponto.status === 'produtivo' && typeof userPerfil !== 'undefined' && userPerfil === 'cidadao') {
                         popupContent += `<button onclick="abrirDoacaoModal(${ponto.id})" style="background:#2ECC71; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; width:100%;">🍲 Doar Colheita</button>`;
                     }
+                    
+                    // Apadrinhamento corporativo (apenas para empresas, em hortas sem patrocinador)
+                    if(ponto.tipo === 'horta' && !ponto.empresa_padrinho_id && typeof userPerfil !== 'undefined' && userPerfil === 'empresa') {
+                        popupContent += `<button onclick="apadrinharHorta(${ponto.id})" style="background:#27AE60; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; width:100%;">🌿 Apadrinhar esta Horta</button>`;
+                    }
+                    
                     popupContent += `<button onclick="abrirReportModal(${ponto.id})" style="background:#E74C3C; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; width:100%;">⚠️ Reportar Problema</button></div>`;
                 } else {
                     popupContent += `<br><br><small style="color:gray;">Faça login para interagir com este ponto.</small>`;
@@ -78,6 +93,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 });
+
+// Função para Apadrinhar Horta (Exclusivo Empresa)
+window.apadrinharHorta = function(pontoId) {
+    if (confirm("Deseja apadrinhar esta horta comunitária? Sua empresa constará como patrocinadora no mapa!")) {
+        fetch('controllers/processa_apadrinhamento.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'ponto_id=' + pontoId
+        })
+        .then(response => response.text())
+        .then(res => {
+            alert(res);
+            location.reload();
+        });
+    }
+};
 
 // Funções para abrir os modais
 window.abrirReportModal = function(id) {

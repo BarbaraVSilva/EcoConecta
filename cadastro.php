@@ -36,6 +36,8 @@
                         <a href="eventos.php">Mutirões</a>
                         <a href="marketplace.php">Loja & Trocas</a>
                         <a href="guia.php">Guia Educacional</a>
+                        <a href="ecoloja.php">EcoLoja</a>
+                        <a href="dashboard.php">Painel de Impacto</a>
                     </div>
                 </div>
                 <a href="oportunidades.php">Oportunidades</a>

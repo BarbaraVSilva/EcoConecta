@@ -43,6 +43,8 @@ try {
                         <a href="eventos.php">Mutirões</a>
                         <a href="marketplace.php" style="color:var(--primary)!important; font-weight:bold;">Loja & Trocas</a>
                         <a href="guia.php">Guia Educacional</a>
+                        <a href="ecoloja.php">EcoLoja</a>
+                        <a href="dashboard.php">Painel de Impacto</a>
                     </div>
                 </div>
                 <a href="oportunidades.php">Oportunidades</a>

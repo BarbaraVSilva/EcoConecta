@@ -41,6 +41,8 @@
                         <a href="eventos.php">Mutirões</a>
                         <a href="marketplace.php">Loja & Trocas</a>
                         <a href="guia.php">Guia Educacional</a>
+                        <a href="ecoloja.php">EcoLoja</a>
+                        <a href="dashboard.php">Painel de Impacto</a>
                     </div>
                 </div>
                 <a href="oportunidades.php">Oportunidades</a>
@@ -128,6 +130,7 @@
     <!-- Variável JS para saber se está logado -->
     <script>
         const isLoggedIn = <?php echo isset($_SESSION['usuario_id']) ? 'true' : 'false'; ?>;
+        const userPerfil = "<?php echo isset($_SESSION['tipo_perfil']) ? $_SESSION['tipo_perfil'] : ''; ?>";
     </script>
 
     <!-- Leaflet JS -->

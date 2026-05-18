@@ -14,12 +14,40 @@ $stmt->execute();
 $result = $stmt->get_result();
 $usuario = $result->fetch_assoc();
 
+// Consultas específicas por tipo de perfil
 if ($usuario['tipo_perfil'] === 'empresa') {
+    // Busca oportunidades criadas
     $stmtOp = $conn->prepare("SELECT * FROM oportunidades WHERE criador_id = ? ORDER BY data_publicacao DESC");
     $stmtOp->bind_param("i", $id);
     $stmtOp->execute();
     $resultOp = $stmtOp->get_result();
     $minhas_oportunidades = $resultOp->fetch_all(MYSQLI_ASSOC);
+
+    // Busca cupons de clientes resgatados
+    $stmtCli = $conn->prepare("
+        SELECT r.codigo_cupom, r.status, r.data_resgate, rec.titulo, u.nome AS cliente_nome 
+        FROM resgates r 
+        JOIN recompensas rec ON r.recompensa_id = rec.id 
+        JOIN usuarios u ON r.usuario_id = u.id 
+        WHERE rec.empresa_id = ? 
+        ORDER BY r.data_resgate DESC
+    ");
+    $stmtCli->bind_param("i", $id);
+    $stmtCli->execute();
+    $cupons_clientes = $stmtCli->get_result()->fetch_all(MYSQLI_ASSOC);
+} else {
+    // Busca cupons resgatados pelo cidadão
+    $stmtCup = $conn->prepare("
+        SELECT r.codigo_cupom, r.status, r.data_resgate, rec.titulo, rec.descricao, u.nome AS empresa_nome 
+        FROM resgates r 
+        JOIN recompensas rec ON r.recompensa_id = rec.id 
+        JOIN usuarios u ON rec.empresa_id = u.id 
+        WHERE r.usuario_id = ? 
+        ORDER BY r.data_resgate DESC
+    ");
+    $stmtCup->bind_param("i", $id);
+    $stmtCup->execute();
+    $meus_cupons = $stmtCup->get_result()->fetch_all(MYSQLI_ASSOC);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -38,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil - EcoConecta</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .page-header { padding-top: 8rem; padding-bottom: 2rem; text-align: center; }
     </style>
@@ -56,7 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
                 Eco<span>Conecta</span>
             </a>
-            <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button><nav class="nav-links" id="nav-links">
+            <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+            <nav class="nav-links" id="nav-links">
                 <a href="index.php">Início</a>
                 <a href="mapa.php">Mapa de Impacto</a>
                 <div class="dropdown">
@@ -65,6 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <a href="eventos.php">Mutirões</a>
                         <a href="marketplace.php">Loja & Trocas</a>
                         <a href="guia.php">Guia Educacional</a>
+                        <a href="ecoloja.php">EcoLoja</a>
+                        <a href="dashboard.php">Painel de Impacto</a>
                     </div>
                 </div>
                 <a href="oportunidades.php">Oportunidades</a>
@@ -94,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         🍃 <?php echo $usuario['eco_pontos']; ?> EcoPontos
                     </div>
                     <p style="margin-top: 1rem; color: var(--gray); font-size: 0.9rem;">
-                        Ganhe pontos participando de mutirões e ajudando a manter nosso mapa atualizado!
+                        Ganhe pontos participando de mutirões, respondendo a quizzes e ajudando a manter nosso mapa atualizado!
                     </p>
                 <?php endif; ?>
             </div>
@@ -120,6 +152,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p style="background: rgba(46, 204, 113, 0.1); padding: 1rem; border-radius: 10px; color: var(--primary-dark);">Você ainda não publicou nenhuma oportunidade.</p>
                     <?php endif; ?>
                     <a href="oportunidades.php" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Ir para o Mural e Publicar</a>
+
+                    <!-- Controle de Cupons Resgatados por Clientes -->
+                    <h3 style="margin-top: 3rem; border-top: 1px solid #eee; padding-top: 2rem;"><i class="fas fa-barcode"></i> Controle de Cupons Resgatados</h3>
+                    <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 1.5rem;">Gerencie os cupons da EcoLoja que clientes geraram para utilizar em sua empresa.</p>
+                    <?php if(count($cupons_clientes) > 0): ?>
+                        <div style="display:grid; grid-template-columns:1fr; gap:15px;">
+                            <?php foreach($cupons_clientes as $c_cli): ?>
+                                <div style="padding:15px; background:#f9f9f9; border:1px solid #eee; border-radius:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                                    <div>
+                                        <strong style="color:var(--dark); font-size:0.95rem;"><?php echo htmlspecialchars($c_cli['cliente_nome']); ?></strong>
+                                        <div style="font-size:0.8rem; color:var(--gray); margin-top:3px;">Campanha: <?php echo htmlspecialchars($c_cli['titulo']); ?></div>
+                                    </div>
+                                    <div style="text-align:right;">
+                                        <div style="font-family:monospace; background:#fff; border:1px solid #ccc; padding:4px 8px; border-radius:4px; font-weight:bold; color:var(--dark); font-size:0.9rem;"><?php echo $c_cli['codigo_cupom']; ?></div>
+                                        <div style="font-size:0.75rem; color:#888; margin-top:4px;">Gerado em <?php echo date('d/m/Y', strtotime($c_cli['data_resgate'])); ?></div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <p style="background: rgba(0,0,0,0.02); padding: 1rem; border-radius: 10px; color: var(--gray);">Nenhum cliente resgatou ofertas da sua empresa na EcoLoja ainda.</p>
+                    <?php endif; ?>
+
                 <?php else: ?>
                     <h3>🌱 Currículo Verde</h3>
                     <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 1.5rem;">
@@ -133,17 +188,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <form method="POST">
                         <div class="form-group">
                             <label for="bio_curriculo">Sobre mim, cursos concluídos e engajamento:</label>
-                            <textarea id="bio_curriculo" name="bio_curriculo" class="form-control" rows="6"><?php echo htmlspecialchars($usuario['bio_curriculo'] ?? ''); ?></textarea>
+                            <textarea id="bio_curriculo" name="bio_curriculo" class="form-control" rows="6" placeholder="Ex: Estudante de engenharia apaixonado por hortas e agroecologia..."><?php echo htmlspecialchars($usuario['bio_curriculo'] ?? ''); ?></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Salvar Currículo</button>
+                        <a href="exporta_curriculo.php" class="btn btn-outline" style="margin-left: 10px; display: inline-flex; align-items: center; gap: 8px;"><i class="fas fa-file-pdf"></i> Imprimir / PDF</a>
                     </form>
+
+                    <!-- Meus Cupons da EcoLoja -->
+                    <h3 style="margin-top: 3rem; border-top: 1px solid #eee; padding-top: 2rem;"><i class="fas fa-ticket-alt"></i> Meus Cupons da EcoLoja</h3>
+                    <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 1.5rem;">Use estes códigos de cupom nas lojas parceiras para usufruir de seus descontos e prêmios.</p>
+                    <?php if(count($meus_cupons) > 0): ?>
+                        <div style="display:grid; grid-template-columns:1fr; gap:15px;">
+                            <?php foreach($meus_cupons as $cup): ?>
+                                <div style="padding:20px; background:#f4fbf7; border:1px solid #c8e6c9; border-radius:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px;">
+                                    <div>
+                                        <strong style="color:#1b5e20; font-size:1.1rem;"><?php echo htmlspecialchars($cup['titulo']); ?></strong>
+                                        <div style="font-size:0.85rem; color:var(--gray); margin-top:4px;"><?php echo htmlspecialchars($cup['descricao']); ?></div>
+                                        <div style="font-size:0.8rem; color:#777; margin-top:4px;"><i class="fas fa-store"></i> Parceiro: <?php echo htmlspecialchars($cup['empresa_nome']); ?></div>
+                                    </div>
+                                    <div style="text-align:right;">
+                                        <div style="font-family:monospace; background:#e8f5e9; border:1px dashed #2e7d32; padding:6px 12px; border-radius:6px; font-weight:bold; color:#1b5e20; font-size:1.05rem; letter-spacing:0.5px;"><?php echo $cup['codigo_cupom']; ?></div>
+                                        <div style="font-size:0.75rem; color:#888; margin-top:6px;">Resgatado em <?php echo date('d/m/Y', strtotime($cup['data_resgate'])); ?></div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <p style="background: rgba(0,0,0,0.02); padding: 1rem; border-radius: 10px; color: var(--gray);">Você ainda não resgatou nenhum cupom na EcoLoja. Visite a <a href="ecoloja.php" style="color:var(--primary); font-weight:bold;">EcoLoja</a>!</p>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>
     </div>
-<script src="js/menu.js"></script>
+    <script src="js/menu.js"></script>
 </body>
 </html>
-
-
-

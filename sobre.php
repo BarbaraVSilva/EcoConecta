@@ -74,40 +74,65 @@ session_start();
             color: #2e7d32;
             margin-bottom: 20px;
         }
-        .idealizer-section {
+        .team-section {
             background: white;
             padding: 50px;
             border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 40px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 60px;
         }
-        .idealizer-image {
-            width: 200px;
-            height: 200px;
-            background: #e0e0e0;
+        .team-section h2 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        .team-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: #f9f9f9;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+            border-color: #66bb6a;
+        }
+        .team-member-avatar {
+            width: 90px;
+            height: 90px;
+            background: #e8f5e9;
+            color: #2e7d32;
             border-radius: 50%;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: #999;
-            flex-shrink: 0;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            transition: transform 0.3s, background-color 0.3s, color 0.3s;
         }
-        .idealizer-info h2 {
+        .team-card:hover .team-member-avatar {
+            transform: scale(1.1);
+            background: #2e7d32;
+            color: white;
+        }
+        .team-card h3 {
             color: #333;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            font-weight: 600;
         }
-        .idealizer-info p {
+        .team-card p {
             color: #666;
+            font-size: 0.9rem;
             font-style: italic;
-        }
-        @media (max-width: 768px) {
-            .idealizer-section {
-                flex-direction: column;
-                text-align: center;
-            }
         }
     </style>
 </head>
@@ -153,14 +178,39 @@ session_start();
             </div>
         </section>
 
-        <section class="idealizer-section">
-            <div class="idealizer-image">
-                <i class="fas fa-user-tie"></i>
-            </div>
-            <div class="idealizer-info">
-                <h2>Sobre a Idealizadora</h2>
-                <p><strong>Barbara</strong></p>
-                <p>Barbara é uma entusiasta da sustentabilidade e tecnologia que acredita que a mudança começa na comunidade. O EcoConecta nasceu do desejo de unir as pontas soltas da gestão de resíduos e agricultura urbana em São Paulo, transformando informações dispersas em uma rede funcional de impacto positivo.</p>
+        <section class="team-section">
+            <h2>Nossa Equipe</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-member-avatar"><i class="fas fa-user-circle"></i></div>
+                    <h3>Barbara Silva</h3>
+                    <p>Idealizadora & Desenvolvedora</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-member-avatar"><i class="fas fa-user-circle"></i></div>
+                    <h3>Thamires Martins</h3>
+                    <p>Coordenadora de Projetos</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-member-avatar"><i class="fas fa-user-circle"></i></div>
+                    <h3>Jefferson Borges</h3>
+                    <p>Desenvolvedor Backend</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-member-avatar"><i class="fas fa-user-circle"></i></div>
+                    <h3>Richard Greghi</h3>
+                    <p>Especialista em UX/UI</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-member-avatar"><i class="fas fa-user-circle"></i></div>
+                    <h3>Ricardo Pighin</h3>
+                    <p>Desenvolvedor Frontend</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-member-avatar"><i class="fas fa-user-circle"></i></div>
+                    <h3>Matheus Araujo</h3>
+                    <p>Analista de Banco de Dados</p>
+                </div>
             </div>
         </section>
     </div>
