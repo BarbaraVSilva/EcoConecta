@@ -4,7 +4,12 @@ require_once 'config/conexao.php';
 
 try {
     $result = $conn->query("SELECT e.*, u.nome as criador_nome FROM eventos e JOIN usuarios u ON e.criador_id = u.id ORDER BY e.data_evento ASC");
-    $eventos = $result->fetch_all(MYSQLI_ASSOC);
+    $eventos = [];
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $eventos[] = $row;
+        }
+    }
 } catch (Exception $e) {
     $eventos = [];
 }

@@ -7,4 +7,6 @@ node_modules/
 .env
 .idea/
 .vscode/
-config/database.php (se tiver senhas)
+# Configurações com credenciais sensíveis
+config/conexao.php
+config/google_config.php

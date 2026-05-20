@@ -59,10 +59,10 @@ O **EcoConecta** surge para mitigar três grandes desafios urbanos de São Paulo
 ---
 
 ## 🏗️ 2. Arquitetura e Stack Tecnológica
-*   **Frontend Responsivo (UI/UX):** Interface projetada com **HTML5 & CSS3 Customizado**, utilizando *CSS Grid* e *Flexbox* para design responsivo fluido, estilização com efeitos *glassmorphism* e transições suaves.
-*   **Backend Estável:** PHP 8.x estruturado com autenticação segura baseada em sessões, controladores de fluxo (CRUD) e tratamento robusto de dados.
-*   **Banco de Dados Relacional:** MySQL com triggers, restrições de chaves estrangeiras (`CASCADE` e `SET NULL`) e integridade referencial rigorosa.
-*   **Analytics comportamental:** Integração ativa com **Microsoft Clarity** para rastreamento de comportamento do usuário (heatmaps, sessões).
+*   **Frontend Responsivo (UI/UX):** Interface com **HTML5 & CSS3 Customizado**, utilizando *CSS Grid*, *Flexbox*, efeitos *glassmorphism* e micro-animações interativas.
+*   **Backend Híbrido & Seguro:** PHP 8.x com controle de sessões, **Autenticação via Google (Google Sign-In)** e processador transacional nativo.
+*   **Banco de Dados Relacional:** MySQL otimizado para portabilidade de servidores (usando laços associativos compatíveis e evitando `fetch_all`) e restrições `ON DELETE CASCADE`.
+*   **Analytics Comportamental:** Rastreamento com **Microsoft Clarity** para otimização de fluxos.
 
 ---
 
@@ -122,9 +122,9 @@ O **EcoConecta** surge para mitigar três grandes desafios urbanos de São Paulo
 
 ## 🔒 9. Resiliência, Segurança & LGPD
 ### Diretrizes: Segurança da Informação e Privacidade (`lgpd_exclusao.php`)
-*   **Criptografia Bcrypt:** Proteção robusta contra ataques de força bruta no banco de dados, convertendo senhas em hashes irreversíveis.
-*   **Conformidade Estrita à LGPD:** Menus transparentes de Termos de Uso e Política de Privacidade.
-*   **Direito de Exclusão:** Botão de ação direta para o cidadão deletar seu perfil e todos os dados associados do servidor (exclusão lógica e física em cascade).
+*   **Google Auth & LGPD:** Cadastro em clique único vinculando o aceite transparente das políticas de dados.
+*   **Ocultação de Dados Sensíveis:** Proteção contra vazamento de credenciais locais/produção usando arquivos de template (`.example.php`) ignorados no Git.
+*   **Criptografia Bcrypt & Exclusão:** Hashes irreversíveis de senha e exclusão total física/lógica da conta a pedido do cidadão (direito ao esquecimento).
 
 ---
 

@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+require_once 'config/google_config.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,10 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - EcoConecta</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- Google Identity Services Library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         .auth-container {
             max-width: 400px;
             margin: 8rem auto 4rem;
+        }
+        /* Custom styling to align Google sign-in button with theme */
+        .g_id_signin {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
     </style>
 <script type="text/javascript">
@@ -75,12 +86,56 @@
 
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Entrar</button>
             </form>
+
+            <div style="display: flex; align-items: center; text-align: center; margin: 1.5rem 0;">
+                <hr style="flex: 1; border: none; border-top: 1px solid #ddd; margin: 0 10px;">
+                <span style="color: var(--gray); font-size: 0.9rem;">ou entre com</span>
+                <hr style="flex: 1; border: none; border-top: 1px solid #ddd; margin: 0 10px;">
+            </div>
+
+            <!-- Botão Google Sign-In -->
+            <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
+                <div id="g_id_onload"
+                     data-client_id="<?php echo GOOGLE_CLIENT_ID; ?>"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="pill"
+                     data-theme="outline"
+                     data-text="signin_with"
+                     data-size="large"
+                     data-logo_alignment="left"
+                     data-width="100%">
+                </div>
+            </div>
             
-            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem;">
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">
                 Ainda não tem conta? <a href="cadastro.php" style="color: var(--primary); font-weight: bold;">Cadastre-se</a>
             </p>
         </div>
     </div>
+
+    <!-- Script Callback do Google -->
+    <script>
+        function handleCredentialResponse(response) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'controllers/processa_google.php';
+            
+            const tokenInput = document.createElement('input');
+            tokenInput.type = 'hidden';
+            tokenInput.name = 'id_token';
+            tokenInput.value = response.credential;
+            form.appendChild(tokenInput);
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
 <script src="js/menu.js"></script>
 </body>
 </html>

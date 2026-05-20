@@ -30,7 +30,13 @@ $q_stmt = $conn->prepare("
 ");
 $q_stmt->bind_param("i", $user_id);
 $q_stmt->execute();
-$cursos = $q_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$q_result = $q_stmt->get_result();
+$cursos = [];
+if ($q_result) {
+    while ($row = $q_result->fetch_assoc()) {
+        $cursos[] = $row;
+    }
+}
 
 // 2. Pontos Mapeados pelo Usuário (pontos_impacto)
 $p_stmt = $conn->prepare("SELECT COUNT(id) AS total FROM pontos_impacto WHERE criador_id = ?");

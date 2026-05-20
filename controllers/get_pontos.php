@@ -9,7 +9,12 @@ try {
         LEFT JOIN usuarios u ON p.empresa_padrinho_id = u.id 
         ORDER BY p.tipo
     ");
-    $pontos = $result->fetch_all(MYSQLI_ASSOC);
+    $pontos = [];
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $pontos[] = $row;
+        }
+    }
     echo json_encode($pontos);
 } catch (Exception $e) {
     echo json_encode([]);

@@ -7,7 +7,12 @@ $user_perfil = isset($_SESSION['tipo_perfil']) ? $_SESSION['tipo_perfil'] : '';
 
 try {
     $result = $conn->query("SELECT * FROM guia_educacional ORDER BY data_criacao DESC");
-    $artigos = $result->fetch_all(MYSQLI_ASSOC);
+    $artigos = [];
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $artigos[] = $row;
+        }
+    }
 } catch (Exception $e) {
     $artigos = [];
 }

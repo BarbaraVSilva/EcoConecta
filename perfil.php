@@ -21,7 +21,12 @@ if ($usuario['tipo_perfil'] === 'empresa') {
     $stmtOp->bind_param("i", $id);
     $stmtOp->execute();
     $resultOp = $stmtOp->get_result();
-    $minhas_oportunidades = $resultOp->fetch_all(MYSQLI_ASSOC);
+    $minhas_oportunidades = [];
+    if ($resultOp) {
+        while ($row = $resultOp->fetch_assoc()) {
+            $minhas_oportunidades[] = $row;
+        }
+    }
 
     // Busca cupons de clientes resgatados
     $stmtCli = $conn->prepare("
@@ -34,7 +39,13 @@ if ($usuario['tipo_perfil'] === 'empresa') {
     ");
     $stmtCli->bind_param("i", $id);
     $stmtCli->execute();
-    $cupons_clientes = $stmtCli->get_result()->fetch_all(MYSQLI_ASSOC);
+    $resultCli = $stmtCli->get_result();
+    $cupons_clientes = [];
+    if ($resultCli) {
+        while ($row = $resultCli->fetch_assoc()) {
+            $cupons_clientes[] = $row;
+        }
+    }
 } else {
     // Busca cupons resgatados pelo cidadão
     $stmtCup = $conn->prepare("
@@ -47,7 +58,13 @@ if ($usuario['tipo_perfil'] === 'empresa') {
     ");
     $stmtCup->bind_param("i", $id);
     $stmtCup->execute();
-    $meus_cupons = $stmtCup->get_result()->fetch_all(MYSQLI_ASSOC);
+    $resultCup = $stmtCup->get_result();
+    $meus_cupons = [];
+    if ($resultCup) {
+        while ($row = $resultCup->fetch_assoc()) {
+            $meus_cupons[] = $row;
+        }
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

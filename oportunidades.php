@@ -18,7 +18,12 @@ try {
     $tipo_perfil = $userSession['tipo_perfil'] ?? 'cidadao';
 
     $result = $conn->query("SELECT * FROM oportunidades ORDER BY data_publicacao DESC");
-    $oportunidades = $result->fetch_all(MYSQLI_ASSOC);
+    $oportunidades = [];
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $oportunidades[] = $row;
+        }
+    }
 } catch (Exception $e) {
     $oportunidades = [];
     $tipo_perfil = 'cidadao';

@@ -27,7 +27,12 @@ $res_rec = $conn->query("
     WHERE r.quantidade_disponivel > 0 
     ORDER BY r.custo_pontos ASC
 ");
-$recompensas = $res_rec->fetch_all(MYSQLI_ASSOC);
+$recompensas = [];
+if ($res_rec) {
+    while ($row = $res_rec->fetch_assoc()) {
+        $recompensas[] = $row;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

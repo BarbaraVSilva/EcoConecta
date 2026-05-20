@@ -4,7 +4,12 @@ require_once 'config/conexao.php';
 
 try {
     $result = $conn->query("SELECT m.*, u.nome as criador_nome FROM marketplace m JOIN usuarios u ON m.criador_id = u.id ORDER BY m.data_criacao DESC");
-    $produtos = $result->fetch_all(MYSQLI_ASSOC);
+    $produtos = [];
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $produtos[] = $row;
+        }
+    }
 } catch (Exception $e) {
     $produtos = [];
 }

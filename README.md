@@ -113,35 +113,36 @@ Para rodar a plataforma localmente na sua máquina, siga os seguintes passos:
 2.  **Configuração do Banco de Dados:**
     *   Inicie os serviços do **Apache** e do **MySQL** no painel de controle do seu servidor local.
     *   Acesse o **phpMyAdmin** (`http://localhost/phpmyadmin`).
-    *   Crie um novo banco de dados chamado **`ecoconecta_db`** (ou utilize o nome de sua preferência).
+    *   Crie um novo banco de dados chamado **`ecoconecta`** (ou utilize o nome de sua preferência).
     *   Vá na aba "Importar", selecione o arquivo **`sql/database.sql`** localizado dentro do projeto e execute a importação. O script criará todas as tabelas necessárias e preencherá a base com **dados de exemplo altamente robustos** (hortas reais de São Paulo, usuários de teste, guias e quizzes completos).
 
-3.  **Ajuste de Conectividade:**
-    *   Abra o arquivo `config/conexao.php` e certifique-se de que os dados de conexão correspondem às credenciais do seu MySQL local:
-    ```php
-    $host = 'localhost';
-    $db   = 'ecoconecta_db'; // Nome do banco que você criou
-    $user = 'root';          // Usuário padrão do MySQL
-    $pass = '';              // Senha padrão (geralmente vazia no XAMPP)
-    ```
+3.  **Ajuste de Conectividade e Chaves Sensíveis:**
+    *   **Importante:** Para segurança das credenciais, os arquivos de configuração reais estão excluídos do Git.
+    *   Copie o arquivo **[config/conexao.example.php](file:///C:/Users/Barbara/Desktop/Projetos/01-PROJECTS/Projeto%20Script/config/conexao.example.php)** para **`config/conexao.php`** e configure os dados do seu MySQL local.
+    *   Copie o arquivo **[config/google_config.example.php](file:///C:/Users/Barbara/Desktop/Projetos/01-PROJECTS/Projeto%20Script/config/google_config.example.php)** para **`config/google_config.php`** e insira o seu Google Client ID.
 
 4.  **Acesse no Navegador:**
     *   Abra o navegador de sua preferência e digite:
-        `http://localhost/Projeto Script/` (ou a pasta correspondente no seu servidor local).
+        `http://localhost/EcoConecta/`
     *   Use as credenciais de teste fornecidas na seção abaixo para navegar como cidadão ou empresa!
 
 ---
 
 ## 🔑 Credenciais de Teste (Dados Iniciais)
 
-Para testar todas as funcionalidades das duas modalidades de perfil disponíveis na plataforma, você pode usar os seguintes acessos (senha padrão para todos é `senha123`):
+Para testar todas as funcionalidades das duas modalidades de perfil disponíveis na plataforma, você pode usar os seguintes acessos rápidos (senha padrão para todos é `teste123`):
 
 *   **Perfil Cidadão (Explorador, Resgates, Quizzes e Green CV):**
-    *   **E-mail:** `barbara@ecoconecta.com`
-    *   **E-mail:** `cadu@gmail.com`
+    *   **E-mail:** `cidadao@teste.com`
+    *   **Senha:** `teste123` (Conta pré-abastecida com 500 EcoPontos)
 *   **Perfil Empresa (Criação de Oportunidades, Doações e Recompensas):**
-    *   **E-mail:** `contato@ecologica.com`
-    *   **E-mail:** `contato@ipeagro.org`
+    *   **E-mail:** `empresa@teste.com`
+    *   **Senha:** `teste123`
+
+---
+
+## 🔒 Login Social & Google Auth
+O projeto conta com integração completa do **Google Sign-In**. Cidadãos e empresas podem se cadastrar e efetuar login usando suas contas do Google diretamente na tela de autenticação, vinculando os seus perfis e aceitando as políticas da LGPD em um único clique sem necessidade de senha manual.
 
 ---
 

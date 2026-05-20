@@ -148,7 +148,9 @@ INSERT IGNORE INTO usuarios (id, nome, email, senha_hash, tipo_perfil, eco_ponto
 (4, 'Coopere Centro Reciclagem', 'financeiro@cooperecentro.org.br', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'empresa', 0, 'Cooperativa autônoma de catadores de materiais recicláveis da região central de São Paulo.'),
 (5, 'Verde Urbano Paisagismo', 'contato@verdeurbano.com.br', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'empresa', 0, 'Estúdio de arquitetura ecológica e paisagismo regenerativo focado em telhados verdes e jardins produtivos.'),
 (6, 'Carlos Eduardo', 'cadu@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'cidadao', 450, 'Morador de Pinheiros, entusiasta de hortas urbanas e ciclista. Voluntário ativo em mutirões de limpeza.'),
-(7, 'Mariana Souza', 'mariana.sustentavel@uol.com.br', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'cidadao', 280, 'Designer focada em upcycling e moda consciente. Acredito na economia circular e no consumo local.');
+(7, 'Mariana Souza', 'mariana.sustentavel@uol.com.br', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'cidadao', 280, 'Designer focada em upcycling e moda consciente. Acredito na economia circular e no consumo local.'),
+(8, 'Cidadão de Teste', 'cidadao@teste.com', '$2y$10$NqXm0MQPkLDppU5CNAIUnufw8YRzEN/IPYQOk59WzmVyXwcrcNLES', 'cidadao', 500, 'Perfil cidadão para testes do sistema.'),
+(9, 'Empresa de Teste', 'empresa@teste.com', '$2y$10$NqXm0MQPkLDppU5CNAIUnufw8YRzEN/IPYQOk59WzmVyXwcrcNLES', 'empresa', 0, 'Perfil empresa para testes do sistema.');
 
 -- Guias Educacionais
 INSERT IGNORE INTO guia_educacional (id, titulo, conteudo, categoria) VALUES 
