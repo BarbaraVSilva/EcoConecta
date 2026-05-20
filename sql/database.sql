@@ -221,16 +221,16 @@ INSERT IGNORE INTO oportunidades (id, titulo, descricao, tipo, link_externo, cri
 (12, 'Coordenador de Logística Reversa de Embalagens', 'Planejamento e coordenação de fluxo logístico reverso de materiais recicláveis pós-consumo em parceria com grandes marcas.', 'vaga', 'https://www.cooperecentro.org.br/trabalheconosco', 4);
 
 /* Marketplace de Exemplo */
-INSERT IGNORE INTO marketplace (id, titulo, descricao, tipo_anuncio, preco, criador_id) VALUES 
-(1, 'Kit Compostagem Doméstica', 'Composteira completa em ótimo estado, ideal para apartamentos.', 'upcycling', 150.00, 1),
-(2, 'Sementes de Manjericão Orgânico', 'Troco sementes de manjericão por sementes de tomate.', 'troca_semente', 0.00, 1),
-(3, 'Muda de Jabuticabeira', 'Doação de muda pequena para quem tem espaço no quintal.', 'doacao', 0.00, 1),
-(4, 'Sabão Ecológico Artesanal (Lote com 4)', 'Sabão feito a partir de óleo de cozinha reciclado e essência natural de eucalipto.', 'upcycling', 25.00, 1),
-(5, 'Vasos Auto-irrigáveis de Garrafa Pet', 'Vasos práticos e sustentáveis produzidos a partir de garrafas pet recicladas, ideais para temperos.', 'upcycling', 12.00, 1),
-(6, 'Mudas de Pimenta Biquinho', 'Tenho várias mudas prontas para transplante. Aceito troca por adubo orgânico.', 'troca_semente', 0.00, 1),
-(7, 'Composteira Híbrida Doméstica', 'Composteira compacta ideal para cozinhas. Acompanha serragem e manual explicativo.', 'upcycling', 110.00, 6),
-(8, 'Mudas de Hortelã e Erva Cidreira', 'Mudas enraizadas e prontas para o plantio em vaso. Troco por sementes de coentro ou terra adubada.', 'troca_semente', 0.00, 7),
-(9, 'Sobras de Tecido Jeans para Patchwork', 'Sacola com retalhos jeans limpos e cortados para projetos de artesanato e upcycling.', 'doacao', 0.00, 7);
+INSERT IGNORE INTO marketplace (id, titulo, descricao, tipo_anuncio, imagem, preco, criador_id) VALUES 
+(1, 'Kit Compostagem Doméstica', 'Composteira completa em ótimo estado, ideal para apartamentos.', 'upcycling', 'kit_compostagem.png', 150.00, 1),
+(2, 'Sementes de Manjericão Orgânico', 'Troco sementes de manjericão por sementes de tomate.', 'troca_semente', 'sementes_manjericao.png', 0.00, 1),
+(3, 'Muda de Jabuticabeira', 'Doação de muda pequena para quem tem espaço no quintal.', 'doacao', 'muda_jabuticabeira.png', 0.00, 1),
+(4, 'Sabão Ecológico Artesanal (Lote com 4)', 'Sabão feito a partir de óleo de cozinha reciclado e essência natural de eucalipto.', 'upcycling', 'sabao_ecologico.png', 25.00, 1),
+(5, 'Vasos Auto-irrigáveis de Garrafa Pet', 'Vasos práticos e sustentáveis produzidos a partir de garrafas pet recicladas, ideais para temperos.', 'upcycling', 'vasos_pet.png', 12.00, 1),
+(6, 'Mudas de Pimenta Biquinho', 'Tenho várias mudas prontas para transplante. Aceito troca por adubo orgânico.', 'troca_semente', NULL, 0.00, 1),
+(7, 'Composteira Híbrida Doméstica', 'Composteira compacta ideal para cozinhas. Acompanha serragem e manual explicativo.', 'upcycling', 'composteira_hibrida.png', 110.00, 6),
+(8, 'Mudas de Hortelã e Erva Cidreira', 'Mudas enraizadas e prontas para o plantio em vaso. Troco por sementes de coentro ou terra adubada.', 'troca_semente', NULL, 0.00, 7),
+(9, 'Sobras de Tecido Jeans para Patchwork', 'Sacola com retalhos jeans limpos e cortados para projetos de artesanato e upcycling.', 'doacao', NULL, 0.00, 7);
 
 /* Doações de Alimentos Realizadas */
 INSERT IGNORE INTO doacoes_alimentos (id, horta_id, quantidade_kg, descricao) VALUES
