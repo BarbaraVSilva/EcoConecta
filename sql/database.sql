@@ -1,4 +1,4 @@
--- Script de criação das tabelas para o banco existente
+/* Script de criação das tabelas para o banco existente */
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -88,9 +88,9 @@ CREATE TABLE IF NOT EXISTS doacoes_alimentos (
     FOREIGN KEY (horta_id) REFERENCES pontos_impacto(id) ON DELETE CASCADE
 );
 
--- ==========================================
--- NOVAS TABELAS: ECOLOJA (RECOMPENSAS & RESGATES)
--- ==========================================
+/* ========================================== */
+/* NOVAS TABELAS: ECOLOJA (RECOMPENSAS & RESGATES) */
+/* ========================================== */
 CREATE TABLE IF NOT EXISTS recompensas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(150) NOT NULL,
@@ -113,9 +113,9 @@ CREATE TABLE IF NOT EXISTS resgates (
     FOREIGN KEY (recompensa_id) REFERENCES recompensas(id) ON DELETE CASCADE
 );
 
--- ==========================================
--- NOVAS TABELAS: QUIZZES EDUCACIONAIS
--- ==========================================
+/* ========================================== */
+/* NOVAS TABELAS: QUIZZES EDUCACIONAIS */
+/* ========================================== */
 CREATE TABLE IF NOT EXISTS guia_quizzes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     guia_id INT NOT NULL,
@@ -136,11 +136,11 @@ CREATE TABLE IF NOT EXISTS usuario_quizzes (
     FOREIGN KEY (guia_id) REFERENCES guia_educacional(id) ON DELETE CASCADE
 );
 
--- ==========================================
--- INSERÇÃO DE DADOS INICIAIS (SEED DATA)
--- ==========================================
+/* ========================================== */
+/* INSERÇÃO DE DADOS INICIAIS (SEED DATA) */
+/* ========================================== */
 
--- Usuários Padrão
+/* Usuários Padrão */
 INSERT IGNORE INTO usuarios (id, nome, email, senha_hash, tipo_perfil, eco_pontos, bio_curriculo) VALUES
 (1, 'Bárbara Silva', 'barbara@ecoconecta.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'cidadao', 350, 'Estudante de engenharia ambiental apaixonada por hortas comunitárias e compostagem doméstica.'),
 (2, 'EcoLógica Soluções', 'contato@ecologica.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'empresa', 0, 'Empresa focada em assessoria ambiental, gestão de resíduos sólidos e projetos de sustentabilidade urbana.'),
@@ -152,7 +152,7 @@ INSERT IGNORE INTO usuarios (id, nome, email, senha_hash, tipo_perfil, eco_ponto
 (8, 'Cidadão de Teste', 'cidadao@teste.com', '$2y$10$NqXm0MQPkLDppU5CNAIUnufw8YRzEN/IPYQOk59WzmVyXwcrcNLES', 'cidadao', 500, 'Perfil cidadão para testes do sistema.'),
 (9, 'Empresa de Teste', 'empresa@teste.com', '$2y$10$NqXm0MQPkLDppU5CNAIUnufw8YRzEN/IPYQOk59WzmVyXwcrcNLES', 'empresa', 0, 'Perfil empresa para testes do sistema.');
 
--- Guias Educacionais
+/* Guias Educacionais */
 INSERT IGNORE INTO guia_educacional (id, titulo, conteudo, categoria) VALUES 
 (1, 'Como iniciar uma composteira em casa', 'A compostagem é um processo biológico de valorização da matéria orgânica. Para começar, você precisa de um recipiente furado, uma camada de folhas secas (carbono) e uma camada de restos de alimento (nitrogênio). Mantenha a umidade equilibrada e revire uma vez por semana...', 'Compostagem'),
 (2, 'O que pode e o que não pode reciclar?', 'Nem todo material que parece plástico é reciclável. Copos descartáveis sujos de café, fitas adesivas, papel carbono e cerâmicas não devem ir para o lixo reciclável. Já garrafas PET, latinhas de alumínio e caixas de papelão limpas são altamente valorizadas...', 'Reciclagem'),
@@ -160,15 +160,15 @@ INSERT IGNORE INTO guia_educacional (id, titulo, conteudo, categoria) VALUES
 (4, 'Horta em Apartamento', 'Cultivar temperos em apartamento é simples. Escolha vasos com furos para drenagem, use substrato rico em matéria orgânica e garanta pelo menos 4 horas de sol direto diário. Alecrim, hortelã, manjericão e cebolinha adaptam-se perfeitamente...', 'Agricultura Urbana'),
 (5, 'Consumo Consciente: Guia Prático', 'Consumir de forma consciente significa avaliar o impacto de cada compra. Priorize produtores locais, compre a granel para evitar embalagens plásticas descartáveis, e pratique o "desapego" através de trocas ou doações antes de comprar algo novo...', 'Educação Ambiental');
 
--- Quizzes Educacionais (1 Quiz por Guia)
+/* Quizzes Educacionais (1 Quiz por Guia) */
 INSERT IGNORE INTO guia_quizzes (guia_id, pergunta, opcao_a, opcao_b, opcao_c, opcao_correta) VALUES
-(1, 'Qual a proporção ideal aproximada de materiais secos (marrom) para úmidos (verde) na compostagem?', '1 parte seca para 1 parte úmida', '2 partes secas para 1 parte úmida', '1 parte seca para 3 partes úmidas', 'B'),
+(1, 'Qual a proporção ideal aproximada de materiais secos (marrom) para umidos (verde) na compostagem?', '1 parte seca para 1 parte úmida', '2 partes secas para 1 parte úmida', '1 parte seca para 3 partes úmidas', 'B'),
 (2, 'Qual dos seguintes materiais NÃO pode ser destinado à lixeira de recicláveis?', 'Garrafa PET limpa', 'Caixa de papelão ondulado', 'Papel carbono e guardanapo sujo', 'C'),
 (3, 'Qual o princípio fundamental da Economia Circular?', 'Produzir mais rápido para baratear custos', 'Eliminar resíduos e poluição desde o design do produto', 'Incinerar todo o lixo produzido', 'B'),
 (4, 'Quantas horas de sol direto a maioria dos temperos precisa por dia em um apartamento?', 'Pelo menos 4 horas', 'Nenhuma, crescem bem no escuro completo', 'Exatamente 12 horas obrigatórias', 'A'),
 (5, 'O que significa priorizar o comércio local no consumo consciente?', 'Comprar de multinacionais que entregam de moto na sua rua', 'Comprar de pequenos produtores e artesãos do seu próprio bairro', 'Evitar fazer compras no seu bairro para economizar', 'B');
 
--- Pontos de Impacto (Hortas, Coleta, Lojas, Trocas em SP)
+/* Pontos de Impacto (Hortas, Coleta, Lojas, Trocas em SP) */
 INSERT IGNORE INTO pontos_impacto (id, titulo, descricao, latitude, longitude, tipo, status, criador_id, empresa_padrinho_id) VALUES 
 (1, 'Ecoponto Olavo Alvim', 'Recebe entulho, móveis velhos e recicláveis. Rua Olavo Alvim, s/n - Mooca.', -23.55160000, -46.59850000, 'coleta', 'ativo', 1, NULL),
 (2, 'Ecoponto Barra Funda', 'Ponto de descarte de resíduos volumosos e recicláveis. Rua Sólon, 843.', -23.52620000, -46.64330000, 'coleta', 'ativo', 1, NULL),
@@ -190,7 +190,7 @@ INSERT IGNORE INTO pontos_impacto (id, titulo, descricao, latitude, longitude, t
 (18, 'Horta Comunitária da Vila Pompeia', 'Espaço em revitalização com canteiros suspensos que necessita de voluntariado e adubo. Praça das Nascentes - Pompeia.', -23.52980000, -46.68590000, 'horta', 'degradado', 1, NULL),
 (19, 'Ecoponto Santana', 'Recebimento de óleo doméstico usado (em garrafa pet), plásticos de engenharia, baterias e volumosos. Av. Cruzeiro do Sul, s/n.', -23.50420000, -46.62480000, 'coleta', 'ativo', 1, NULL);
 
--- Eventos e Mutirões
+/* Eventos e Mutirões */
 INSERT IGNORE INTO eventos (id, titulo, descricao, data_evento, localizacao, criador_id) VALUES 
 (1, 'Mutirão de Limpeza Movimento SP', 'Ação coletiva de limpeza e educação ambiental na região central.', '2026-05-10 09:00:00', 'Praça da Sé, SP', 1),
 (2, 'Workshop de Compostagem Urbana', 'Aprenda a transformar seus resíduos em adubo de forma prática.', '2026-05-24 14:00:00', 'Centro Cultural São Paulo', 1),
@@ -202,7 +202,7 @@ INSERT IGNORE INTO eventos (id, titulo, descricao, data_evento, localizacao, cri
 (8, 'Grande Feira de Upcycling e Swap Party (Troca de Roupas)', 'Traga roupas limpas e em bom estado que você não usa mais e troque por outras. Teremos oficinas de pequenos reparos e upcycling de tecidos no local.', '2026-07-18 11:00:00', 'Instituto Chão - Pinheiros, SP', 7),
 (9, 'Mutirão de Plantio de Árvores Nativas e Reflorestamento', 'Plantio de 150 mudas de árvores nativas da Mata Atlântica em área de preservação na Zona Norte de SP. Recomenda-se protetor solar e calçado fechado.', '2026-06-05 08:00:00', 'Parque Estadual da Cantareira (Entrada Horto Florestal)', 3);
 
--- Oportunidades de Voluntariado e Vagas Verdes
+/* Oportunidades de Voluntariado e Vagas Verdes */
 INSERT IGNORE INTO oportunidades (id, titulo, descricao, tipo, link_externo, criador_id) VALUES 
 (1, 'Voluntário Fundação Florestal', 'Apoio em Unidades de Conservação e trilhas ecológicas.', 'vaga', 'https://www.fflorestal.sp.gov.br', 1),
 (2, 'Educador Ambiental - Instituto Limpa Brasil', 'Auxílio em campanhas de conscientização sobre resíduos.', 'vaga', 'https://limpabrasil.org', 1),
@@ -217,7 +217,7 @@ INSERT IGNORE INTO oportunidades (id, titulo, descricao, tipo, link_externo, cri
 (11, 'Curso Básico de Horta Vertical e Mini-Jardins', 'Aprenda a otimizar pequenos espaços urbanos montando minijardins e hortas de parede sustentáveis e estéticas. Ideal para apartamentos.', 'curso', 'https://www.cooperecentro.org.br/cursos', 4),
 (12, 'Coordenador de Logística Reversa de Embalagens', 'Planejamento e coordenação de fluxo logístico reverso de materiais recicláveis pós-consumo em parceria com grandes marcas.', 'vaga', 'https://www.cooperecentro.org.br/trabalheconosco', 4);
 
--- Marketplace de Exemplo
+/* Marketplace de Exemplo */
 INSERT IGNORE INTO marketplace (id, titulo, descricao, tipo_anuncio, preco, criador_id) VALUES 
 (1, 'Kit Compostagem Doméstica', 'Composteira completa em ótimo estado, ideal para apartamentos.', 'upcycling', 150.00, 1),
 (2, 'Sementes de Manjericão Orgânico', 'Troco sementes de manjericão por sementes de tomate.', 'troca_semente', 0.00, 1),
@@ -229,7 +229,7 @@ INSERT IGNORE INTO marketplace (id, titulo, descricao, tipo_anuncio, preco, cria
 (8, 'Mudas de Hortelã e Erva Cidreira', 'Mudas enraizadas e prontas para o plantio em vaso. Troco por sementes de coentro ou terra adubada.', 'troca_semente', 0.00, 7),
 (9, 'Sobras de Tecido Jeans para Patchwork', 'Sacola com retalhos jeans limpos e cortados para projetos de artesanato e upcycling.', 'doacao', 0.00, 7);
 
--- Doações de Alimentos Realizadas
+/* Doações de Alimentos Realizadas */
 INSERT IGNORE INTO doacoes_alimentos (id, horta_id, quantidade_kg, descricao) VALUES
 (1, 3, 12.50, 'Colheita abundante de alfaces crespa e roxa destinadas ao Sopão Comunitário.'),
 (2, 4, 8.20, 'Doação de temperos variados (manjericão, salsinha e cebolinha) e tomates cereja.'),
@@ -237,7 +237,7 @@ INSERT IGNORE INTO doacoes_alimentos (id, horta_id, quantidade_kg, descricao) VA
 (4, 8, 18.30, 'Salsa, coentro, alface crespa e mudas de hortelã colhidas para o Sopão Solidário da Paróquia.'),
 (5, 12, 35.00, 'Colheita comunitária gigante de cenoura, mandioca e berinjela doada integralmente para cozinhas comunitárias locais.');
 
--- Recompensas Iniciais da EcoLoja
+/* Recompensas Iniciais da EcoLoja */
 INSERT IGNORE INTO recompensas (id, titulo, descricao, custo_pontos, empresa_id, quantidade_disponivel) VALUES
 (1, '10% de Desconto em Orgânicos', 'Válido para compras de hortaliças e temperos orgânicos na feira física parceira.', 100, 2, 15),
 (2, 'Pacote de Adubo de Minhoca (2kg)', 'Adubo orgânico de altíssima qualidade produzido a partir de compostagem termofílica.', 180, 2, 8),
@@ -246,6 +246,6 @@ INSERT IGNORE INTO recompensas (id, titulo, descricao, custo_pontos, empresa_id,
 (5, 'Sacola Ecológica de Algodão Cru', 'Sacola resistente para feira, produzida de forma ética pela Coopere Centro.', 80, 4, 20),
 (6, 'Desconto de R$ 20,00 no Armazém do Campo', 'Cupom de desconto válido para compras acima de R$ 50,00 em produtos orgânicos no Armazém físico.', 150, 2, 12);
 
--- Resgate Inicial de Teste
+/* Resgate Inicial de Teste */
 INSERT IGNORE INTO resgates (usuario_id, recompensa_id, codigo_cupom, status) VALUES
 (1, 1, 'ECO-839210-VOLT', 'ativo');
