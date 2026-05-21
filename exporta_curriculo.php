@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once 'config/conexao.php';
 
@@ -242,6 +242,7 @@ $reports_enviados = intval($r_stmt->get_result()->fetch_assoc()['total']);
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "wrp7gx295r");
 </script>
+<link rel="stylesheet" href="css/accessibility.css">
 </head>
 <body>
     <div class="action-bar no-print">
@@ -308,5 +309,6 @@ $reports_enviados = intval($r_stmt->get_result()->fetch_assoc()['total']);
             </div>
         </div>
     </div>
+<script src="js/accessibility.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once 'config/conexao.php';
 
@@ -34,15 +34,16 @@ try {
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "wrp7gx295r");
 </script>
+<link rel="stylesheet" href="css/accessibility.css">
 </head>
 <body>
-    <header>
+    <header role="banner" aria-label="Cabeçalho do site">
         <div class="nav-container">
             <a href="index.php" class="logo">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
                 Eco<span>Conecta</span>
             </a>
-            <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button><nav class="nav-links" id="nav-links">
+            <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button><nav class="nav-links" aria-label="Menu principal" id="nav-links">
                 <a href="index.php">Início</a>
                 <a href="mapa.php">Mapa de Impacto</a>
                 <div class="dropdown">
@@ -67,6 +68,7 @@ try {
             </nav>
         </div>
     </header>
+<main id="conteudo-principal" tabindex="-1">
 
     <div class="container page-header">
         <h1>Calendário de <span>Mutirões</span></h1>
@@ -128,6 +130,7 @@ try {
         </div>
     </div>
 <script src="js/menu.js"></script>
+<script src="js/accessibility.js"></script>
 </body>
 </html>
 

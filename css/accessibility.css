@@ -1,0 +1,524 @@
+/* ============================================================
+   EcoConecta — Folha de Estilos de Acessibilidade
+   WCAG 2.1 AA Compliant
+   ============================================================ */
+
+/* ---- Importação da fonte para dislexia ---- */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap');
+
+/* ============================================================
+   1. SKIP NAVIGATION (Pular para conteúdo)
+   ============================================================ */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    background: #1b5e20;
+    color: white !important;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0 0 12px 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    z-index: 99999;
+    text-decoration: none;
+    transition: top 0.2s;
+    border: 2px solid white;
+}
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid #fff200;
+    outline-offset: 2px;
+}
+
+/* ============================================================
+   2. FOCO VISÍVEL (Todos os elementos interativos)
+   ============================================================ */
+*:focus {
+    outline: 3px solid #1b5e20 !important;
+    outline-offset: 3px !important;
+}
+*:focus:not(:focus-visible) {
+    outline: none !important;
+}
+*:focus-visible {
+    outline: 3px solid #1b5e20 !important;
+    outline-offset: 3px !important;
+    border-radius: 4px;
+}
+
+/* ============================================================
+   3. MODO ALTO CONTRASTE
+   ============================================================ */
+body.alto-contraste {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+body.alto-contraste header,
+body.alto-contraste footer,
+body.alto-contraste .glass-card,
+body.alto-contraste .reward-card,
+body.alto-contraste .news-card,
+body.alto-contraste .step-card,
+body.alto-contraste .cycle-card,
+body.alto-contraste .detail-panel,
+body.alto-contraste .impact-card,
+body.alto-contraste .sponsor-item,
+body.alto-contraste .testimonial-card,
+body.alto-contraste .team-card,
+body.alto-contraste .stat-card,
+body.alto-contraste .mvv-card {
+    background-color: #111 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+body.alto-contraste a,
+body.alto-contraste h1,
+body.alto-contraste h2,
+body.alto-contraste h3,
+body.alto-contraste h4,
+body.alto-contraste p,
+body.alto-contraste span,
+body.alto-contraste label {
+    color: #fff !important;
+}
+body.alto-contraste .btn-primary,
+body.alto-contraste .btn-white {
+    background: #fff200 !important;
+    color: #000 !important;
+    border: 2px solid #fff200 !important;
+}
+body.alto-contraste .btn-outline,
+body.alto-contraste .btn-ghost {
+    background: transparent !important;
+    color: #fff200 !important;
+    border: 2px solid #fff200 !important;
+}
+body.alto-contraste input,
+body.alto-contraste textarea,
+body.alto-contraste select {
+    background: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+body.alto-contraste .nav-links a {
+    color: #fff !important;
+}
+body.alto-contraste .logo {
+    color: #fff200 !important;
+}
+body.alto-contraste .logo span {
+    color: #a5d6a7 !important;
+}
+body.alto-contraste .dropdown-content {
+    background: #111 !important;
+    border: 1px solid #fff !important;
+}
+body.alto-contraste .dropdown-content a {
+    color: #fff !important;
+}
+body.alto-contraste .impact-section,
+body.alto-contraste .testimonials-section,
+body.alto-contraste .sdg-strip,
+body.alto-contraste .partners-section,
+body.alto-contraste .cta-section,
+body.alto-contraste .store-header {
+    background: #111 !important;
+}
+body.alto-contraste .sdg-badge {
+    border: 1px solid #fff !important;
+    color: #fff !important;
+}
+body.alto-contraste .tag {
+    background: #333 !important;
+    color: #fff200 !important;
+}
+body.alto-contraste .eco-pontos-badge {
+    background: #333 !important;
+    color: #fff200 !important;
+    border: 1px solid #fff200;
+}
+body.alto-contraste img {
+    filter: contrast(1.2) brightness(0.9);
+}
+body.alto-contraste .hero-image img {
+    filter: grayscale(30%) contrast(1.2);
+}
+
+/* ============================================================
+   4. MODO ESCALA DE CINZA
+   ============================================================ */
+body.escala-cinza {
+    filter: grayscale(100%);
+}
+
+/* ============================================================
+   5. MODO FONTE PARA DISLEXIA
+   ============================================================ */
+body.fonte-dislexia,
+body.fonte-dislexia * {
+    font-family: 'Lexend', sans-serif !important;
+    letter-spacing: 0.05em !important;
+    word-spacing: 0.15em !important;
+    line-height: 1.85 !important;
+}
+
+/* ============================================================
+   6. TAMANHO DE FONTE ESCALÁVEL
+   ============================================================ */
+body.fonte-media  { font-size: 110% !important; }
+body.fonte-grande { font-size: 125% !important; }
+body.fonte-enorme { font-size: 145% !important; }
+
+/* ============================================================
+   7. REDUÇÃO DE MOVIMENTO (respeita preferência do sistema)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+body.sem-animacoes *,
+body.sem-animacoes *::before,
+body.sem-animacoes *::after {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* ============================================================
+   8. GUIA DE LEITURA (linha que segue o cursor)
+   ============================================================ */
+#guia-leitura {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 2.8rem;
+    background: rgba(46, 204, 113, 0.18);
+    border-top: 2px solid rgba(46, 204, 113, 0.5);
+    border-bottom: 2px solid rgba(46, 204, 113, 0.5);
+    pointer-events: none;
+    z-index: 9998;
+    display: none;
+    transition: top 0.05s linear;
+}
+body.guia-ativa #guia-leitura {
+    display: block;
+}
+
+/* ============================================================
+   9. BARRA DE ACESSIBILIDADE FLUTUANTE
+   ============================================================ */
+#eco-acessibilidade-btn {
+    position: fixed;
+    bottom: 2rem;
+    left: 1.5rem;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    /* Garante que seja grande o suficiente para toque (WCAG 2.5.5) */
+}
+#eco-acessibilidade-btn:hover,
+#eco-acessibilidade-btn:focus {
+    transform: scale(1.12);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    outline: 3px solid #fff200 !important;
+}
+#eco-acessibilidade-btn[aria-expanded="true"] {
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d3b15, #1b5e20);
+}
+
+/* Painel de Acessibilidade */
+#eco-painel-acessibilidade {
+    position: fixed;
+    bottom: 5.5rem;
+    left: 1.5rem;
+    width: 300px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    z-index: 9999;
+    border: 2px solid #2e7d32;
+    overflow: hidden;
+    display: none;
+    animation: slideUpPanel 0.25s ease;
+}
+#eco-painel-acessibilidade.aberto {
+    display: block;
+}
+@keyframes slideUpPanel {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.painel-header {
+    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+    color: white;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.painel-header h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    color: white !important;
+}
+.painel-fechar {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0 0.3rem;
+    line-height: 1;
+}
+.painel-fechar:hover { opacity: 0.8; }
+
+.painel-corpo {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* Cada linha de controle */
+.ac-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1rem;
+    background: #f8fffe;
+    border-radius: 12px;
+    border: 1px solid #e0f2e9;
+    gap: 0.8rem;
+}
+.ac-control-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1b5e20;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+.ac-control-label .ac-icon {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* Toggle Switch */
+.ac-toggle {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+}
+.ac-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+.ac-slider {
+    position: absolute;
+    inset: 0;
+    background: #ccc;
+    border-radius: 26px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.ac-slider::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.ac-toggle input:checked + .ac-slider {
+    background: #2e7d32;
+}
+.ac-toggle input:checked + .ac-slider::before {
+    transform: translateX(22px);
+}
+.ac-toggle input:focus + .ac-slider {
+    outline: 2px solid #1b5e20;
+    outline-offset: 2px;
+}
+
+/* Controles de tamanho de fonte */
+.font-size-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.font-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1.5px solid #2e7d32;
+    background: white;
+    color: #1b5e20;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+    font-size: 0.9rem;
+    line-height: 1;
+}
+.font-btn:hover,
+.font-btn.ativo {
+    background: #2e7d32;
+    color: white;
+}
+.font-btn:focus {
+    outline: 2px solid #1b5e20 !important;
+}
+
+/* Botão reset */
+.ac-reset-btn {
+    width: 100%;
+    padding: 0.7rem;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background 0.2s;
+}
+.ac-reset-btn:hover { background: #c62828; }
+
+/* Status ARIA para leitores de tela */
+.ac-status {
+    font-size: 0.78rem;
+    color: #555;
+    text-align: center;
+    margin-top: 0.3rem;
+    font-style: italic;
+}
+
+/* ============================================================
+   10. MODO ALTO CONTRASTE — Painel de Acessibilidade
+   ============================================================ */
+body.alto-contraste #eco-painel-acessibilidade {
+    background: #111 !important;
+    border-color: #fff !important;
+}
+body.alto-contraste .ac-control {
+    background: #222 !important;
+    border-color: #555 !important;
+}
+body.alto-contraste .ac-control-label { color: #fff !important; }
+body.alto-contraste .font-btn {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+body.alto-contraste .font-btn:hover,
+body.alto-contraste .font-btn.ativo {
+    background: #fff200 !important;
+    color: #000 !important;
+}
+
+/* ============================================================
+   11. UTILITÁRIOS PARA LEITORES DE TELA
+   ============================================================ */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ============================================================
+   12. MELHORIAS DE CONTRASTE GLOBAL
+   ============================================================ */
+/* Garante proporção 4.5:1 para texto pequeno, 3:1 para texto grande */
+.glass-card p,
+.step-card p,
+.cycle-card p,
+.news-body p {
+    color: #4a4a4a !important; /* Contraste ≥ 4.5:1 no fundo branco */
+}
+
+/* Links sempre visualmente distintos */
+a:not(.btn):not(.logo):not(.skip-link) {
+    text-decoration-skip-ink: auto;
+}
+a:not(.btn):not(.logo):not(.skip-link):hover {
+    text-decoration: underline;
+}
+
+/* Indicador de campos obrigatórios */
+label.required::after {
+    content: ' *';
+    color: #c62828;
+    font-weight: bold;
+}
+
+/* Bordas de inputs com contraste suficiente */
+.form-control {
+    border: 1.5px solid #666 !important;
+}
+
+/* Mensagens de erro acessíveis */
+.alert-erro {
+    background: #ffebee;
+    border: 2px solid #c62828;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    color: #b71c1c;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.alert-sucesso {
+    background: #e8f5e9;
+    border: 2px solid #2e7d32;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    color: #1b5e20;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

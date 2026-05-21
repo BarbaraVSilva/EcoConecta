@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -135,6 +135,7 @@ session_start();
             font-style: italic;
         }
     </style>
+<link rel="stylesheet" href="css/accessibility.css">
 </head>
 <body>
     <div class="about-container">
@@ -215,8 +216,10 @@ session_start();
         </section>
     </div>
 
-    <footer style="text-align: center; padding: 40px; color: #666;">
+    </main>
+<footer role="contentinfo" style="text-align: center; padding: 40px; color: #666;">
         &copy; 2026 EcoConecta - Desenvolvido com <i class="fas fa-heart" style="color: #e91e63;"></i> para um mundo melhor.
     </footer>
+<script src="js/accessibility.js"></script>
 </body>
 </html>

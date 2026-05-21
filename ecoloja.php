@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once 'config/conexao.php';
 
@@ -188,16 +188,17 @@ if ($res_rec) {
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "wrp7gx295r");
 </script>
+<link rel="stylesheet" href="css/accessibility.css">
 </head>
 <body>
-    <header>
+    <header role="banner" aria-label="Cabeçalho do site">
         <div class="nav-container">
             <a href="index.php" class="logo">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
                 Eco<span>Conecta</span>
             </a>
             <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-            <nav class="nav-links" id="nav-links">
+            <nav class="nav-links" aria-label="Menu principal" id="nav-links">
                 <a href="index.php">Início</a>
                 <a href="mapa.php">Mapa de Impacto</a>
                 <div class="dropdown open">
@@ -222,6 +223,7 @@ if ($res_rec) {
             </nav>
         </div>
     </header>
+<main id="conteudo-principal" tabindex="-1">
 
     <div class="container store-container">
         <div class="store-header">
@@ -324,7 +326,8 @@ if ($res_rec) {
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 40px; color: #666; background: #fff; margin-top: 4rem; border-top: 1px solid rgba(0,0,0,0.05);">
+    </main>
+<footer role="contentinfo" style="text-align: center; padding: 40px; color: #666; background: #fff; margin-top: 4rem; border-top: 1px solid rgba(0,0,0,0.05);">
         &copy; 2026 EcoConecta - Desenvolvido com <i class="fas fa-heart" style="color: #e91e63;"></i> para um mundo melhor.
     </footer>
 
@@ -353,5 +356,6 @@ if ($res_rec) {
         }
     </script>
     <script src="js/menu.js"></script>
+<script src="js/accessibility.js"></script>
 </body>
 </html>
