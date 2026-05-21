@@ -1,6 +1,12 @@
 <?php 
 session_start(); 
 require_once 'config/google_config.php';
+
+// Guard: se já logado, redireciona ao perfil
+if (isset($_SESSION['usuario_id'])) {
+    header("Location: perfil.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,7 +22,6 @@ require_once 'config/google_config.php';
             max-width: 500px;
             margin: 8rem auto 4rem;
         }
-        /* Custom styling to align Google sign-in button with theme */
         .g_id_signin {
             width: 100%;
             display: flex;
@@ -38,14 +43,15 @@ require_once 'config/google_config.php';
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
                 Eco<span>Conecta</span>
             </a>
-            <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button><nav class="nav-links" id="nav-links">
+            <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+            <nav class="nav-links" id="nav-links">
                 <a href="index.php">Início</a>
                 <a href="mapa.php">Mapa de Impacto</a>
                 <div class="dropdown">
                     <a href="javascript:void(0)">Comunidade ▾</a>
                     <div class="dropdown-content">
                         <a href="eventos.php">Mutirões</a>
-                        <a href="marketplace.php">Loja & Trocas</a>
+                        <a href="marketplace.php">Loja &amp; Trocas</a>
                         <a href="guia.php">Guia Educacional</a>
                         <a href="ecoloja.php">EcoLoja</a>
                         <a href="dashboard.php">Painel de Impacto</a>
@@ -136,7 +142,6 @@ require_once 'config/google_config.php';
     <!-- Script Callback do Google -->
     <script>
         function handleCredentialResponse(response) {
-            // Verifica se o checkbox da LGPD está marcado antes de submeter
             const lgpdCheckbox = document.getElementById('lgpd');
             if (lgpdCheckbox && !lgpdCheckbox.checked) {
                 alert('Para se cadastrar, você precisa concordar com os Termos de Privacidade e LGPD.');
@@ -147,14 +152,12 @@ require_once 'config/google_config.php';
             form.method = 'POST';
             form.action = 'controllers/processa_google.php';
             
-            // Token JWT retornado pelo Google
             const tokenInput = document.createElement('input');
             tokenInput.type = 'hidden';
             tokenInput.name = 'id_token';
             tokenInput.value = response.credential;
             form.appendChild(tokenInput);
 
-            // Perfil selecionado pelo usuário
             const perfilSelect = document.getElementById('tipo_perfil');
             if (perfilSelect) {
                 const perfilInput = document.createElement('input');
@@ -164,7 +167,6 @@ require_once 'config/google_config.php';
                 form.appendChild(perfilInput);
             }
 
-            // Confirmação do aceite da LGPD
             const lgpdInput = document.createElement('input');
             lgpdInput.type = 'hidden';
             lgpdInput.name = 'lgpd';

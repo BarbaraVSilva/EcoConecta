@@ -128,6 +128,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Meu <span>Perfil</span></h1>
     </div>
 
+    <?php if (isset($_SESSION['flash_sucesso'])): ?>
+    <div style="max-width:1200px; margin: 0 auto 0; padding: 0 2rem;">
+        <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-left: 5px solid #2e7d32; border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; font-weight: 600; color: #1b5e20; font-size: 1rem;">
+            🌿 <?php echo htmlspecialchars($_SESSION['flash_sucesso']); unset($_SESSION['flash_sucesso']); ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <div class="container" style="padding-top: 0;">
         <div class="profile-grid">
             <!-- Sidebar -->

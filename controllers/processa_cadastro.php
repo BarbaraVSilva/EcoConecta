@@ -37,10 +37,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
 
         // Autentica o usuário automaticamente após o cadastro
-        $_SESSION['usuario_id'] = $conn->insert_id;
-        $_SESSION['usuario_nome'] = $nome;
+        $_SESSION['usuario_id']    = $conn->insert_id;
+        $_SESSION['usuario_nome']  = $nome;
+        $_SESSION['usuario_email'] = $email;
+        $_SESSION['tipo_perfil']   = $tipo_perfil;
+        $_SESSION['flash_sucesso'] = "Conta criada com sucesso! Bem-vindo(a), " . htmlspecialchars($nome) . "! Explore o mapa e comece sua jornada 🌿";
 
-        header("Location: ../oportunidades.php");
+        if ($tipo_perfil === 'empresa') {
+            header("Location: ../perfil.php");
+        } else {
+            header("Location: ../mapa.php");
+        }
         exit;
 
     } catch (Exception $e) {

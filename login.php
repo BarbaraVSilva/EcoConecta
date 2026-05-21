@@ -1,6 +1,12 @@
 <?php 
 session_start(); 
 require_once 'config/google_config.php';
+
+// Guard: se já logado, redireciona ao perfil
+if (isset($_SESSION['usuario_id'])) {
+    header("Location: perfil.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

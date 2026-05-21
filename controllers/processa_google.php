@@ -82,10 +82,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_token'])) {
 
             if ($usuario) {
                 // Usuário cadastrado: inicia sessão
-                $_SESSION['usuario_id'] = $usuario['id'];
-                $_SESSION['usuario_nome'] = $usuario['nome'];
-                
-                header("Location: ../oportunidades.php");
+                $_SESSION['usuario_id']    = $usuario['id'];
+                $_SESSION['usuario_nome']  = $usuario['nome'];
+                $_SESSION['usuario_email'] = $email;
+                $_SESSION['tipo_perfil']   = $usuario['tipo_perfil'];
+                $_SESSION['flash_sucesso'] = "Bem-vindo(a) de volta, " . htmlspecialchars($usuario['nome']) . "! 🌿";
+
+                if ($usuario['tipo_perfil'] === 'empresa') {
+                    header("Location: ../perfil.php");
+                } else {
+                    header("Location: ../dashboard.php");
+                }
                 exit;
             } else {
                 // Usuário NÃO cadastrado: cadastra automaticamente via Google
@@ -97,11 +104,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_token'])) {
                 $stmt->bind_param("ssssi", $nome, $email, $senha_hash, $tipo_perfil, $lgpd);
                 $stmt->execute();
 
-                // Autentica
-                $_SESSION['usuario_id'] = $conn->insert_id;
-                $_SESSION['usuario_nome'] = $nome;
+                // Autentica novo usuário Google
+                $_SESSION['usuario_id']    = $conn->insert_id;
+                $_SESSION['usuario_nome']  = $nome;
+                $_SESSION['usuario_email'] = $email;
+                $_SESSION['tipo_perfil']   = $tipo_perfil;
+                $_SESSION['flash_sucesso'] = "Conta criada com sucesso via Google! Bem-vindo(a), " . htmlspecialchars($nome) . "! 🌿";
 
-                header("Location: ../oportunidades.php");
+                if ($tipo_perfil === 'empresa') {
+                    header("Location: ../perfil.php");
+                } else {
+                    header("Location: ../mapa.php");
+                }
                 exit;
             }
         } catch (Exception $e) {

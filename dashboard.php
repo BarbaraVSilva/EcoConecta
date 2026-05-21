@@ -2,6 +2,13 @@
 session_start();
 require_once 'config/conexao.php';
 
+// Guard: redireciona não-logados para o login
+if (!isset($_SESSION['usuario_id'])) {
+    $_SESSION['erro_login'] = "Faça login para acessar o Painel de Impacto.";
+    header("Location: login.php");
+    exit;
+}
+
 // 1. Total de Alimentos Doados (doacoes_alimentos)
 $res_doacoes = $conn->query("SELECT SUM(quantidade_kg) AS total_kg, COUNT(id) AS total_registros FROM doacoes_alimentos");
 $row_doacoes = $res_doacoes->fetch_assoc();
@@ -239,7 +246,12 @@ $total_usuarios = $perfis['cidadao'] + $perfis['empresa'];
             <p>Acompanhe em tempo real o resultado de nossas colheitas, reciclagens e parcerias ecológicas em São Paulo.</p>
         </div>
 
-        <!-- Destaques de Impacto -->
+        <?php if (isset($_SESSION['flash_sucesso'])): ?>
+        <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-left: 5px solid #2e7d32; border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; font-weight: 600; color: #1b5e20; font-size: 1rem; margin-bottom: 2rem;">
+            🌿 <?php echo htmlspecialchars($_SESSION['flash_sucesso']); unset($_SESSION['flash_sucesso']); ?>
+        </div>
+        <?php endif; ?>
+
         <div class="impact-grid">
             <div class="impact-card">
                 <div class="impact-icon" style="background: #e8f5e9; color: #2e7d32;">
